@@ -4,6 +4,35 @@
  <exclude-pattern>*/.git/*</exclude-pattern>
  <exclude-pattern>*/.svn/*</exclude-pattern>
 
+ <!-- Reports errors if the same class or interface name is used in multiple files. -->
+ <rule ref="Generic.Classes.DuplicateClassName"/>
+
+ <!--  This sniff implements the common algorithm for empty statement body detection. A body is considered as empty if it is completely empty or it only contains whitespace characters and|or comments. -->
+ <rule ref="Generic.CodeAnalysis.EmptyStatement"/>
+
+ <!-- Detects for-loops that use a function call in the test expression. -->
+ <rule ref="Generic.CodeAnalysis.ForLoopWithTestFunctionCall"/>
+ 
+ <!--  Detects incrementer jumbling in for loops. -->
+ <rule ref="Generic.CodeAnalysis.JumbledIncrementer"/>
+ 
+ <!-- Detects unconditional if- and elseif-statements. -->
+ <rule ref="Generic.CodeAnalysis.UnconditionalIfStatement"/>
+ 
+ <!-- Detects unnecessary final modifiers inside of final classes. -->
+ <rule ref="Generic.CodeAnalysis.UnnecessaryFinalModifier"/>
+
+ <!-- Checks the for unused function parameters. -->
+ <rule ref="Generic.CodeAnalysis.UnusedFunctionParameter"/>
+ 
+ <!-- Warns about FIXME comments. -->
+ <rule ref="Generic.Commenting.Fixme"/>
+ 
+ <!-- THIS IS WHERE WE LEFT OFF ALPHABETICALLY -->
+ 
+ <!-- Warns about TODO comments. -->
+ <rule ref="Generic.Commenting.Todo"/>
+ 
  <!-- PHP code MUST use the long <?php ?> tags or the short-echo <?= ?> tags; it MUST NOT use the other tag variations. -->
  <rule ref="Generic.PHP.DisallowShortOpenTag.EchoFound">
   <severity>0</severity>

@@ -1,4 +1,45 @@
 <?xml version="1.0"?>
 <ruleset name="GigaOM">
  <description>GigaOM coding standards.</description>
+ <exclude-pattern>*/.git/*</exclude-pattern>
+ <exclude-pattern>*/.svn/*</exclude-pattern>
+
+ <!-- PHP code MUST use the long <?php ?> tags or the short-echo <?= ?> tags; it MUST NOT use the other tag variations. -->
+ <rule ref="Generic.PHP.DisallowShortOpenTag.EchoFound">
+  <severity>0</severity>
+ </rule>
+
+ <!-- PHP code MUST use only UTF-8 without BOM. -->
+ <rule ref="Generic.Files.ByteOrderMark"/>
+
+ <!-- Class constants MUST be declared in all upper case with underscore separators. -->
+ <rule ref="Generic.NamingConventions.UpperCaseConstantName"/>
+
+ <!-- All PHP files MUST use the Unix LF (linefeed) line ending. -->
+ <rule ref="Generic.Files.LineEndings">
+  <properties>
+   <property name="eolChar" value="\n"/>
+  </properties>
+ </rule>
+
+ <!-- The closing ?> tag MUST be omitted from files containing only PHP. -->
+ <rule ref="Zend.Files.ClosingTag"/>
+
+ <!-- There MUST NOT be trailing whitespace at the end of non-blank lines. -->
+ <rule ref="Squiz.WhiteSpace.SuperfluousWhitespace.StartFile">
+  <severity>0</severity>
+ </rule>
+ <rule ref="Squiz.WhiteSpace.SuperfluousWhitespace.EndFile">
+  <severity>0</severity>
+ </rule>
+ <rule ref="Squiz.WhiteSpace.SuperfluousWhitespace.EmptyLines">
+  <severity>0</severity>
+ </rule>
+
+ <!-- Visibility MUST be declared on all methods. -->
+ <rule ref="Squiz.Scope.MethodScope"/>
+ <rule ref="Squiz.WhiteSpace.ScopeKeywordSpacing"/>
+
+ <!-- The body of each structure MUST be enclosed by braces. This standardizes how the structures look, and reduces the likelihood of introducing errors as new lines get added to the body. -->
+ <rule ref="Generic.ControlStructures.InlineControlStructure"/>
 </ruleset>

@@ -125,7 +125,7 @@
  <!-- Ensures all control structure keywords are lowercase. -->
  <rule ref="Squiz.ControlStructures.LowercaseDeclaration"/>
  
- <!--------------- PAUSED HERE ALPHA_BORTICALLY ----------------------->
+ <!-- PAUSED HERE ALPHA_BORTICALLY  -->
  
  <!-- The closing ?> tag MUST be omitted from files containing only PHP. -->
  <rule ref="Zend.Files.ClosingTag"/>

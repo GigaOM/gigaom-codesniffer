@@ -76,23 +76,15 @@ class GigaOM_Sniffs_ControlStructures_OpeningControlStructureSniff implements PH
 		// The end of the function occurs at the end of the argument list. Its
 		// like this because some people like to break long function declarations
 		// over multiple lines.
-		$functionLine = $tokens[$tokens[$stackPtr]['parenthesis_closer']]['line'];
+		$controlLine = $tokens[$tokens[$stackPtr]['parenthesis_closer']]['line'];
 		$braceLine    = $tokens[$openingBrace]['line'];
 
-		$lineDifference = ($braceLine - $functionLine);
+		$lineDifference = ($braceLine - $controlLine);
 
 		if ($lineDifference === 0)
 		{
 			$error = 'Opening brace should be on a new line';
 			$phpcsFile->addError($error, $openingBrace, 'BraceOnSameLine');
-			return;
-		}//end if
-
-		if ($lineDifference > 1)
-		{
-			$error = 'Opening brace should be on the line after the declaration; found %s blank line(s)';
-			$data  = array(($lineDifference - 1));
-			$phpcsFile->addError($error, $openingBrace, 'BraceSpacing', $data);
 			return;
 		}//end if
 

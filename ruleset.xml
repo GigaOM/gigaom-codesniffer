@@ -7,7 +7,6 @@
 	<!-- CLOSE, but no cigar:
 	 generic switch
 	 squiz"
-			arrays
 			classDeclaration
 			closingDeclarationComment
 

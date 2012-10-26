@@ -124,12 +124,6 @@ class GigaOM_Sniffs_Arrays_ArrayDeclarationSniff implements PHP_CodeSniffer_Snif
 			if ($valueCount > 0) {
 				$conditionCheck = $phpcsFile->findPrevious(array(T_OPEN_PARENTHESIS, T_SEMICOLON), ($stackPtr - 1), null, false);
 
-				if (($conditionCheck === false) || ($tokens[$conditionCheck]['line'] !== $tokens[$stackPtr]['line'])) {
-					$error = 'Array with multiple values cannot be declared on a single line';
-					$phpcsFile->addError($error, $stackPtr, 'SingleLineNotAllowed');
-					return;
-				}
-
 				// We have a multiple value array that is inside a condition or
 				// function. Check its spacing is correct.
 				foreach ($commas as $comma) {

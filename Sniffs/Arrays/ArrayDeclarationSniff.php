@@ -2,14 +2,18 @@
 /**
  * A test to ensure that arrays conform to the array coding standard.
  *
+ * This is a shameless copy of the work done by Squizlabs, specifically
+ * Greg Sherwood <gsherwood@squiz.net> and Marc McIntyre <mmcintyre@squiz.net>,
+ * but modified to match GigaOM standards.
+ *
  * PHP version 5
  *
  * @category  PHP
  * @package   PHP_CodeSniffer
- * @author    Greg Sherwood <gsherwood@squiz.net>
- * @author    Marc McIntyre <mmcintyre@squiz.net>
- * @copyright 2006-2012 Squiz Pty Ltd (ABN 77 084 670 600)
- * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
+ * @author    Matthew Batchelder <borkweb@gmail.com>
+ * @author    Zachary Tirrell <zbtirrell@gmail.com>
+ * @copyright 2012 GigaOM
+ * @license   https://github.com/GigaOM/gigaom-codesniffer/blob/master/licence.txt BSD Licence
  * @link      http://pear.php.net/package/PHP_CodeSniffer
  */
 
@@ -18,10 +22,10 @@
  *
  * @category  PHP
  * @package   PHP_CodeSniffer
- * @author    Greg Sherwood <gsherwood@squiz.net>
- * @author    Marc McIntyre <mmcintyre@squiz.net>
- * @copyright 2006-2012 Squiz Pty Ltd (ABN 77 084 670 600)
- * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
+ * @author    Matthew Batchelder <borkweb@gmail.com>
+ * @author    Zachary Tirrell <zbtirrell@gmail.com>
+ * @copyright 2012 GigaOM
+ * @license   https://github.com/GigaOM/gigaom-codesniffer/blob/master/licence.txt BSD Licence
  * @version   Release: 1.4.0
  * @link      http://pear.php.net/package/PHP_CodeSniffer
  */

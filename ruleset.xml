@@ -55,7 +55,8 @@
 	</rule>
 
 	<!-- Ensures each statement is on a line by itself. -->
-	<rule ref="Generic.Formatting.DisallowMultipleStatements"/>
+	<!-- NOTE: Disabling due to the fact this causes html templates with multiple PHP statements to error out -->
+	<!-- rule ref="Generic.Formatting.DisallowMultipleStatements"/ -->
 
 	<!-- Ensures there is a single space after cast tokens. -->
 	<rule ref="Generic.Formatting.SpaceAfterCast"/>

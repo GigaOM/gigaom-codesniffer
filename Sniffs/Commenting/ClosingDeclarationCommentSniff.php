@@ -151,13 +151,14 @@ class GigaOM_Sniffs_Commenting_ClosingDeclarationCommentSniff implements PHP_Cod
 
 		$error = 'Expected '.$comment;
 		if (isset($tokens[($closingBracket + 1)]) === false || ( $tokens[($closingBracket + 1)]['code'] !== T_COMMENT && $tokens[($closingBracket + 2)]['code'] !== T_COMMENT )) {
-			$phpcsFile->addError($error, $closingBracket, 'Missing');
+			$phpcsFile->addWarning($error, $closingBracket, 'Missing');
 			return;
 		}//end if
 
 		if (
 			   rtrim($tokens[($closingBracket + 1)]['content']) !== $comment
 			&& rtrim($tokens[($closingBracket + 1)]['content']) !== $comment_alt
+			&& isset($tokens[($closingBracket + 2)]['content']) 
 			&& rtrim($tokens[($closingBracket + 2)]['content']) !== $comment
 			&& rtrim($tokens[($closingBracket + 2)]['content']) !== $comment_alt
 		) {

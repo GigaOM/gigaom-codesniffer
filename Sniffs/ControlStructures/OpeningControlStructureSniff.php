@@ -76,7 +76,14 @@ class GigaOM_Sniffs_ControlStructures_OpeningControlStructureSniff implements PH
 		// The end of the function occurs at the end of the argument list. Its
 		// like this because some people like to break long function declarations
 		// over multiple lines.
-		$controlLine = $tokens[$tokens[$stackPtr]['parenthesis_closer']]['line'];
+		if ( isset( $tokens[ $stackPtr ]['parenthesis_closer'] ) )
+		{
+			$controlLine = $tokens[$tokens[$stackPtr]['parenthesis_closer']]['line'];
+		}//end if
+		else
+		{
+			$controlLine = $tokens[$stackPtr]['line'];
+		}//end else
 		$braceLine    = $tokens[$openingBrace]['line'];
 
 		$lineDifference = ($braceLine - $controlLine);
@@ -87,38 +94,5 @@ class GigaOM_Sniffs_ControlStructures_OpeningControlStructureSniff implements PH
 			$phpcsFile->addError($error, $openingBrace, 'BraceOnSameLine');
 			return;
 		}//end if
-
-		// We need to actually find the first piece of content on this line,
-		// as if this is a method with tokens before it (public, static etc)
-		// or an if with an else before it, then we need to start the scope
-		// checking from there, rather than the current token.
-		$lineStart = $stackPtr;
-		while (($lineStart = $phpcsFile->findPrevious(array(T_WHITESPACE), ($lineStart - 1), null, false)) !== false)
-		{
-			if (strpos($tokens[$lineStart]['content'], $phpcsFile->eolChar) !== false)
-			{
-				break;
-			}//end if
-		}//end while
-
-		// We found a new line, now go forward and find the first non-whitespace
-		// token.
-		$lineStart = $phpcsFile->findNext(array(T_WHITESPACE), $lineStart, null, true);
-
-		// The opening brace is on the correct line, now it needs to be
-		// checked to be correctly indented.
-		$startColumn = $tokens[$lineStart]['column'];
-		$braceIndent = $tokens[$openingBrace]['column'];
-
-		if ($braceIndent !== $startColumn)
-		{
-			$error = 'Opening brace indented incorrectly; expected %s spaces, found %s';
-			$data  = array(
-				($startColumn - 1),
-				($braceIndent - 1),
-			);
-			$phpcsFile->addError($error, $openingBrace, 'BraceIndent', $data);
-		}//end if
-
 	}//end process
 }//end class

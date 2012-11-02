@@ -136,6 +136,13 @@ class GigaOM_Sniffs_Commenting_ClosingDeclarationCommentSniff implements PHP_Cod
 		}//end elseif
 
 		if (isset($tokens[$stackPtr]['scope_closer']) === false) {
+			$closing_paren = $tokens[ $stackPtr ]['parenthesis_closer'];
+
+			if ( ':' == $tokens[ $closing_paren + 1]['content'] || ':' == $tokens[ $closing_paren + 2]['content'] )
+			{
+				break;
+			}//end if
+
 			$error = 'Possible parse error: %s missing opening or closing brace';
 			$data  = array($tokens[$stackPtr]['content']);
 			$phpcsFile->addWarning($error, $stackPtr, 'MissingBrace', $data);

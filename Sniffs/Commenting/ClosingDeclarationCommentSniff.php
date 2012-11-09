@@ -138,9 +138,6 @@ class GigaOM_Sniffs_Commenting_ClosingDeclarationCommentSniff implements PHP_Cod
 		if (isset($tokens[$stackPtr]['scope_closer']) === false) {
 			$closing_paren = $tokens[ $stackPtr ]['parenthesis_closer'];
 
-			/***
-			 * Don't force braces to be in place.
-			 *
 			if ( ':' == $tokens[ $closing_paren + 1]['content'] || ':' == $tokens[ $closing_paren + 2]['content'] )
 			{
 				break;
@@ -150,7 +147,6 @@ class GigaOM_Sniffs_Commenting_ClosingDeclarationCommentSniff implements PHP_Cod
 			$data  = array($tokens[$stackPtr]['content']);
 			$phpcsFile->addWarning($error, $stackPtr, 'MissingBrace', $data);
 			return;
-			 */
 		}//end if
 
 		$closingBracket = $tokens[$stackPtr]['scope_closer'];

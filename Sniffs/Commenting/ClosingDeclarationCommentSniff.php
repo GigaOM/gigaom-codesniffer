@@ -138,6 +138,9 @@ class GigaOM_Sniffs_Commenting_ClosingDeclarationCommentSniff implements PHP_Cod
 		if (isset($tokens[$stackPtr]['scope_closer']) === false) {
 			$closing_paren = $tokens[ $stackPtr ]['parenthesis_closer'];
 
+			/***
+			 * Don't force braces to be in place.
+			 *
 			if ( ':' == $tokens[ $closing_paren + 1]['content'] || ':' == $tokens[ $closing_paren + 2]['content'] )
 			{
 				break;
@@ -147,6 +150,7 @@ class GigaOM_Sniffs_Commenting_ClosingDeclarationCommentSniff implements PHP_Cod
 			$data  = array($tokens[$stackPtr]['content']);
 			$phpcsFile->addWarning($error, $stackPtr, 'MissingBrace', $data);
 			return;
+			 */
 		}//end if
 
 		$closingBracket = $tokens[$stackPtr]['scope_closer'];
@@ -156,21 +160,23 @@ class GigaOM_Sniffs_Commenting_ClosingDeclarationCommentSniff implements PHP_Cod
 			return;
 		}//end if
 
-		$error = 'Expected '.$comment;
-		if (isset($tokens[($closingBracket + 1)]) === false || ( $tokens[($closingBracket + 1)]['code'] !== T_COMMENT && $tokens[($closingBracket + 2)]['code'] !== T_COMMENT )) {
-			$phpcsFile->addWarning($error, $closingBracket, 'Missing');
-			return;
-		}//end if
+		if ( $tokens[$closingBracket]['line'] - $tokens[$stackPtr]['line'] >= 10 ) {
+			$error = 'Expected '.$comment;
+			if (isset($tokens[($closingBracket + 1)]) === false || ( $tokens[($closingBracket + 1)]['code'] !== T_COMMENT && $tokens[($closingBracket + 2)]['code'] !== T_COMMENT )) {
+					$phpcsFile->addWarning($error, $closingBracket, 'Missing');
+					return;
+			}//end if
 
-		if (
-			   rtrim($tokens[($closingBracket + 1)]['content']) !== $comment
-			&& rtrim($tokens[($closingBracket + 1)]['content']) !== $comment_alt
-			&& isset($tokens[($closingBracket + 2)]['content']) 
-			&& rtrim($tokens[($closingBracket + 2)]['content']) !== $comment
-			&& rtrim($tokens[($closingBracket + 2)]['content']) !== $comment_alt
-		) {
-			$phpcsFile->addError($error, $closingBracket, 'Incorrect');
-			return;
+			if (
+					 strtolower( rtrim($tokens[($closingBracket + 1)]['content']) ) !== $comment
+				&& strtolower( rtrim($tokens[($closingBracket + 1)]['content']) ) !== $comment_alt
+				&& isset($tokens[($closingBracket + 2)]['content']) 
+				&& strtolower( rtrim($tokens[($closingBracket + 2)]['content']) ) !== $comment
+				&& strtolower( rtrim($tokens[($closingBracket + 2)]['content']) ) !== $comment_alt
+			) {
+				$phpcsFile->addError($error, $closingBracket, 'Incorrect');
+				return;
+			}//end if
 		}//end if
 	}//end process
 }//end class

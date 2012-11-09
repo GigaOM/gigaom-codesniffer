@@ -140,7 +140,10 @@ class GigaOM_Sniffs_Commenting_ClosingDeclarationCommentSniff implements PHP_Cod
 
 			if ( ':' == $tokens[ $closing_paren + 1]['content'] || ':' == $tokens[ $closing_paren + 2]['content'] )
 			{
-				break;
+				$error = 'Colon syntax control structures are not allowed';
+				$data  = array($tokens[$stackPtr]['content']);
+				$phpcsFile->addError($error, $stackPtr, 'ColonSyntax', $data);
+				return;
 			}//end if
 
 			$error = 'Possible parse error: %s missing opening or closing brace';

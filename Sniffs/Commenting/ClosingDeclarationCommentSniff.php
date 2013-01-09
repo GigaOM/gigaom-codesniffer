@@ -136,7 +136,7 @@ class GigaOM_Sniffs_Commenting_ClosingDeclarationCommentSniff implements PHP_Cod
 		}//end elseif
 
 		if (isset($tokens[$stackPtr]['scope_closer']) === false) {
-			$closing_paren = $tokens[ $stackPtr ]['parenthesis_closer'];
+			$closing_paren = isset( $tokens[ $stackPtr ]['parenthesis_closer'] ) ? $tokens[ $stackPtr ]['parenthesis_closer'] : null;
 
 			if ( ':' == $tokens[ $closing_paren + 1]['content'] || ':' == $tokens[ $closing_paren + 2]['content'] )
 			{
@@ -161,7 +161,14 @@ class GigaOM_Sniffs_Commenting_ClosingDeclarationCommentSniff implements PHP_Cod
 
 		if ( $tokens[$closingBracket]['line'] - $tokens[$stackPtr]['line'] >= 10 ) {
 			$error = 'Expected '.$comment;
-			if (isset($tokens[($closingBracket + 1)]) === false || ( $tokens[($closingBracket + 1)]['code'] !== T_COMMENT && $tokens[($closingBracket + 2)]['code'] !== T_COMMENT )) {
+			if (
+				! isset( $tokens[ ( $closingBracket + 1 ) ] )
+				|| (
+					isset( $tokens[ ( $closingBracket + 2 ) ]['code'] )
+					&& $tokens[ ( $closingBracket + 1 ) ]['code'] !== T_COMMENT
+					&& $tokens[ ( $closingBracket + 2 ) ]['code'] !== T_COMMENT
+				)
+			) {
 					$phpcsFile->addWarning($error, $closingBracket, 'Missing');
 					return;
 			}//end if

@@ -126,7 +126,7 @@
 
 	<!-- Checks to ensure that the logical operators 'and' and 'or' are not used. -->
 	<!-- Use the && and || operators instead. -->
-	<rule ref="Squiz.Operators.ValidLogicalOperator"/>
+	<rule ref="Squiz.Operators.ValidLogicalOperators"/>
 
 	<!-- Ensures ob_end_flush isn't used -->
 	<rule ref="Squiz.PHP.DisallowObEndFlush"/>

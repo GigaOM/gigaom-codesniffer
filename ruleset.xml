@@ -3,12 +3,7 @@
 	<description>GigaOM coding standards.</description>
 	<exclude-pattern>*/.git/*</exclude-pattern>
 	<exclude-pattern>*/.svn/*</exclude-pattern>
-
-	<!-- CLOSE, but no cigar:
-	 generic switch
-	 squiz"
-			classDeclaration
-	 -->
+	<exclude-pattern>*/external/*</exclude-pattern>
 
 	<!-- Reports errors if the same class or interface name is used in multiple files. -->
 	<rule ref="Generic.Classes.DuplicateClassName"/>
@@ -39,9 +34,6 @@
 
 	<!-- Runs jshint.js on the file. -->
 	<rule ref="Generic.Debug.JSHint"/>
-
-	<!-- Runs gjslint on the file. -->
-	<!-- rule ref="Generic.Debug.ClosureLinter"/ -->
 
 	<!-- A simple sniff for detecting BOMs that may corrupt application work. -->
 	<rule ref="Generic.Files.ByteOrderMark"/>
@@ -102,6 +94,9 @@
 	<!-- Checks that the method declaration is correct. -->
 	<rule ref="PSR2.Methods.MethodDeclaration"/>
 
+	<!-- Checks the declaration of the class is correct. -->
+	<rule ref="PEAR.Classes.ClassDeclaration"/>
+
 	<!-- Checks that no perl-style comments are used. -->
 	<rule ref="PEAR.Commenting.InlineComment"/>
 
@@ -123,10 +118,27 @@
 	<!-- Ensures all control structure keywords are lowercase. -->
 	<rule ref="Squiz.ControlStructures.LowercaseDeclaration"/>
 
-	<!-- PAUSED HERE ALPHA_BORTICALLY  -->
+	<!-- Checks that duplicate arguments are not used in function declarations. -->
+	<rule ref="Squiz.Functions.FunctionDuplicateArgument"/>
 
-	<!-- The closing ?> tag MUST be omitted from files containing only PHP. -->
-	<rule ref="Zend.Files.ClosingTag"/>
+	<!-- Ensures all class keywords are lowercase. -->
+	<rule ref="Squiz.Functions.LowercaseFunctionKeywords"/>
+
+	<!-- Checks to ensure that the logical operators 'and' and 'or' are not used. -->
+	<!-- Use the && and || operators instead. -->
+	<rule ref="Squiz.Operators.ValidLogicalOperator"/>
+
+	<!-- Ensures ob_end_flush isn't used -->
+	<rule ref="Squiz.PHP.DisallowObEndFlush"/>
+
+	<!-- The use of eval() is discouraged. -->
+	<rule ref="Squiz.PHP.Eval"/>
+
+	<!-- Ensures all calls to inbuilt PHP functions are lowercase. -->
+	<rule ref="Squiz.PHP.LowercasePHPFunctions"/>
+
+	<!-- Makes sure that any strings that are "echoed" are not enclosed in brackets like a function call. -->
+	<rule ref="Squiz.Strings.EchoedStrings"/>
 
 	<!-- There MUST NOT be trailing whitespace at the end of non-blank lines. -->
 	<rule ref="Squiz.WhiteSpace.SuperfluousWhitespace.StartFile">
@@ -142,4 +154,36 @@
 	<!-- Visibility MUST be declared on all methods. -->
 	<rule ref="Squiz.Scope.MethodScope"/>
 	<rule ref="Squiz.WhiteSpace.ScopeKeywordSpacing"/>
+
+	<!-- The closing ?> tag MUST be omitted from files containing only PHP. -->
+	<rule ref="Zend.Files.ClosingTag"/>
+
+	<!-- Enforces WordPress array format -->
+	<rule ref="WordPress.Arrays.ArrayDeclaration"/>
+
+	<!-- Ensures classes are in camel caps, and the first letter is capitalised -->
+	<rule ref="WordPress.Classes.ValidClassName"/>
+
+	<!-- Ensures filenames do not contain underscores -->
+	<rule ref="WordPress.Files.FileName"/>
+
+	<!-- Checks alignment of assignments. If there are multiple adjacent assignments, -->
+	<!-- it will check that the equals signs of each assignment are aligned. It will -->
+	<!-- display a warning to advise that the signs should be aligned. -->
+	<rule ref="WordPress.Formatting.MultipleStatementAlignment"/>
+
+	<!-- Enforces WordPress function argument format -->
+	<rule ref="WordPress.Functions.FunctionDeclarationArgumentSpacing"/>
+
+	<!-- Checks that methods are named appropriately -->
+	<rule ref="WordPress.NamingConventions.ValidFunctionName"/>
+
+	<!-- Ensures objects are assigned to a variable when instantiated. -->
+	<rule ref="WordPress.Objects.ObjectInstantiation"/>
+
+	<!-- Makes sure that any use of Double Quotes ("") are warranted. -->
+	<rule ref="WordPress.Strings.DoubleQuoteUsage"/>
+
+	<!-- Enforces spacing around logical operators and assignments -->
+	<rule ref="WordPress.WhiteSpace.ControlStructureSpacing"/>
 </ruleset>

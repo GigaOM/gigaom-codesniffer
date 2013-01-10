@@ -183,7 +183,4 @@
 
 	<!-- Makes sure that any use of Double Quotes ("") are warranted. -->
 	<rule ref="WordPress.Strings.DoubleQuoteUsage"/>
-
-	<!-- Enforces spacing around logical operators and assignments -->
-	<rule ref="WordPress.WhiteSpace.ControlStructureSpacing"/>
 </ruleset>

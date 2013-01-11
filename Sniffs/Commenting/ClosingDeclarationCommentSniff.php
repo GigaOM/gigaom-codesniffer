@@ -99,6 +99,7 @@ class GigaOM_Sniffs_Commenting_ClosingDeclarationCommentSniff implements PHP_Cod
 			$comment_alt = '// end '.$decName;
 		}//end if
 		elseif ($tokens[$stackPtr]['code'] === T_CLASS) {
+			$decName = $phpcsFile->getDeclarationName($stackPtr);
 			$comment = '//end class';
 			$comment_alt = '// end class';
 		}//end elseif
@@ -179,6 +180,10 @@ class GigaOM_Sniffs_Commenting_ClosingDeclarationCommentSniff implements PHP_Cod
 				&& isset($tokens[($closingBracket + 2)]['content']) 
 				&& strtolower( rtrim($tokens[($closingBracket + 2)]['content']) ) !== $comment
 				&& strtolower( rtrim($tokens[($closingBracket + 2)]['content']) ) !== $comment_alt
+				&& ( T_CLASS && rtrim($tokens[($closingBracket + 2)]['content']) !== '//end ' . $decName )
+				&& ( T_CLASS && rtrim($tokens[($closingBracket + 2)]['content']) !== '// end ' . $decName )
+				&& ( T_CLASS && rtrim($tokens[($closingBracket + 2)]['content']) !== '//END ' . $decName )
+				&& ( T_CLASS && rtrim($tokens[($closingBracket + 2)]['content']) !== '// END ' . $decName )
 			) {
 				$phpcsFile->addError($error, $closingBracket, 'Incorrect');
 				return;

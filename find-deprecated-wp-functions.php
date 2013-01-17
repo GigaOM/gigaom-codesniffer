@@ -43,5 +43,12 @@ foreach ( $file as $line )
 foreach ( $function_replace as $bad => $good )
 {
 	$good = str_replace( '$', '\$', $good );
-	echo "\"{$bad}\" => \"{$good}\",\n";
+	if ( $good )
+	{
+		echo "\"{$bad}\" => \"{$good}\",\n";
+	}//end if
+	else
+	{
+		echo "\"{$bad}\" => null,\n";
+	}//end else
 }//end foreach

@@ -215,7 +215,12 @@ class GigaOM_Sniffs_PHP_DeprecatedFunctionsSniff extends Generic_Sniffs_PHP_Forb
     protected function addError($phpcsFile, $stackPtr, $function, $pattern=null)
     {
         $data  = array($function);
-        $error = 'WordPress Function %s() has been deprecated. Use ' . $this->forbiddenFunctions[ $function ] . ' instead.';
+				$error = 'WordPress Function %s() has been deprecated.';
+
+				if ( $this->forbiddenFunctions[ $function ] ) {
+					$error .= ' Use ' . $this->forbiddenFunctions[ $function ] . ' instead.';
+				}//end if
+
         $type  = 'Deprecated';
 
         if ($this->error === true) {

@@ -158,9 +158,6 @@
 	<!-- The closing ?> tag MUST be omitted from files containing only PHP. -->
 	<rule ref="Zend.Files.ClosingTag"/>
 
-	<!-- Enforces WordPress array format -->
-	<rule ref="WordPress.Arrays.ArrayDeclaration"/>
-
 	<!-- Ensures classes are in camel caps, and the first letter is capitalised -->
 	<rule ref="WordPress.Classes.ValidClassName"/>
 

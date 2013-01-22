@@ -81,18 +81,11 @@
 	<!-- Checks that two strings are not concatenated together; suggests using one string instead. -->
 	<rule ref="Generic.Strings.UnnecessaryStringConcat"/>
 
-
 	<!-- Checks the declaration of the class and its inheritance is correct. -->
 	<rule ref="PSR2.Classes.ClassDeclaration"/>
 
-	<!-- Verifies that properties are declared correctly. -->
-	<rule ref="PSR2.Classes.PropertyDeclaration"/>
-
 	<!-- Verifies that there are no else if statements. Elseif should be used instead. -->
 	<rule ref="PSR2.ControlStructures.ElseIfDeclaration"/>
-
-	<!-- Checks that the method declaration is correct. -->
-	<rule ref="PSR2.Methods.MethodDeclaration"/>
 
 	<!-- Checks the declaration of the class is correct. -->
 	<rule ref="PEAR.Classes.ClassDeclaration"/>

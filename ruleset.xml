@@ -93,9 +93,6 @@
 	<!-- Checks that no perl-style comments are used. -->
 	<rule ref="PEAR.Commenting.InlineComment"/>
 
-	<!-- Checks that the include_once is used in conditional situations, and require_once is used elsewhere. Also checks that brackets do not surround  the file being included -->
-	<rule ref="PEAR.Files.IncludingFile"/>
-
 	<!-- A Sniff to ensure that parameters defined for a function that have a default value come at the end of the function signature. -->
 	<rule ref="PEAR.Functions.ValidDefaultValue"/>
 
@@ -120,9 +117,6 @@
 	<!-- Checks to ensure that the logical operators 'and' and 'or' are not used. -->
 	<!-- Use the && and || operators instead. -->
 	<rule ref="Squiz.Operators.ValidLogicalOperators"/>
-
-	<!-- Ensures ob_end_flush isn't used -->
-	<rule ref="Squiz.PHP.DisallowObEndFlush"/>
 
 	<!-- The use of eval() is discouraged. -->
 	<rule ref="Squiz.PHP.Eval"/>
@@ -156,11 +150,6 @@
 
 	<!-- Ensures filenames do not contain underscores -->
 	<rule ref="WordPress.Files.FileName"/>
-
-	<!-- Checks alignment of assignments. If there are multiple adjacent assignments, -->
-	<!-- it will check that the equals signs of each assignment are aligned. It will -->
-	<!-- display a warning to advise that the signs should be aligned. -->
-	<rule ref="WordPress.Formatting.MultipleStatementAlignment"/>
 
 	<!-- Enforces WordPress function argument format -->
 	<rule ref="WordPress.Functions.FunctionDeclarationArgumentSpacing"/>

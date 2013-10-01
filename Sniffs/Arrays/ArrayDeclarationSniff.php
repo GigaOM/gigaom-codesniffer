@@ -4,7 +4,7 @@
  *
  * This is a shameless copy of the work done by Squizlabs, specifically
  * Greg Sherwood <gsherwood@squiz.net> and Marc McIntyre <mmcintyre@squiz.net>,
- * but modified to match GigaOM standards.
+ * but modified to match Gigaom standards.
  *
  * PHP version 5
  *
@@ -12,8 +12,8 @@
  * @package   PHP_CodeSniffer
  * @author    Matthew Batchelder <borkweb@gmail.com>
  * @author    Zachary Tirrell <zbtirrell@gmail.com>
- * @copyright 2012 GigaOM
- * @license   https://github.com/GigaOM/gigaom-codesniffer/blob/master/licence.txt BSD Licence
+ * @copyright 2012 Gigaom
+ * @license   https://github.com/Gigaom/gigaom-codesniffer/blob/master/licence.txt BSD Licence
  * @link      http://pear.php.net/package/PHP_CodeSniffer
  */
 
@@ -24,12 +24,12 @@
  * @package   PHP_CodeSniffer
  * @author    Matthew Batchelder <borkweb@gmail.com>
  * @author    Zachary Tirrell <zbtirrell@gmail.com>
- * @copyright 2012 GigaOM
- * @license   https://github.com/GigaOM/gigaom-codesniffer/blob/master/licence.txt BSD Licence
+ * @copyright 2012 Gigaom
+ * @license   https://github.com/Gigaom/gigaom-codesniffer/blob/master/licence.txt BSD Licence
  * @version   Release: 1.4.0
  * @link      http://pear.php.net/package/PHP_CodeSniffer
  */
-class GigaOM_Sniffs_Arrays_ArrayDeclarationSniff implements PHP_CodeSniffer_Sniff
+class Gigaom_Sniffs_Arrays_ArrayDeclarationSniff implements PHP_CodeSniffer_Sniff
 {
 	/**
 	 * Returns an array of tokens this test wants to listen for.

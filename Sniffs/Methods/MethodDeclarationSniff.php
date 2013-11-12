@@ -1,6 +1,6 @@
 <?php
 /**
- * GigaOM_Sniffs_Methods_MethodDeclarationSniff.
+ * Gigaom_Sniffs_Methods_MethodDeclarationSniff.
  *
  * PHP version 5
  *
@@ -17,7 +17,7 @@ if (class_exists('PHP_CodeSniffer_Standards_AbstractScopeSniff', true) === false
 }
 
 /**
- * GigaOM_Sniffs_Methods_MethodDeclarationSniff.
+ * Gigaom_Sniffs_Methods_MethodDeclarationSniff.
  *
  * Checks that the method declaration is correct.
  *
@@ -29,7 +29,7 @@ if (class_exists('PHP_CodeSniffer_Standards_AbstractScopeSniff', true) === false
  * @version   Release: 1.4.0
  * @link      http://pear.php.net/package/PHP_CodeSniffer
  */
-class GigaOM_Sniffs_Methods_MethodDeclarationSniff extends PHP_CodeSniffer_Standards_AbstractScopeSniff
+class Gigaom_Sniffs_Methods_MethodDeclarationSniff extends PHP_CodeSniffer_Standards_AbstractScopeSniff
 {
     /**
      * Constructs a Squiz_Sniffs_Scope_MethodScopeSniff.

@@ -23,9 +23,6 @@
 	<!-- Detects unnecessary final modifiers inside of final classes. -->
 	<rule ref="Generic.CodeAnalysis.UnnecessaryFinalModifier"/>
 
-	<!-- Checks the for unused function parameters. -->
-	<rule ref="Generic.CodeAnalysis.UnusedFunctionParameter"/>
-
 	<!-- Warns about FIXME comments. -->
 	<rule ref="Generic.Commenting.Fixme"/>
 

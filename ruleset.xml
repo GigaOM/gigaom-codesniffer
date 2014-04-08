@@ -154,9 +154,6 @@
 	<!-- Checks that methods are named appropriately -->
 	<rule ref="WordPress.NamingConventions.ValidFunctionName"/>
 
-	<!-- Ensures objects are assigned to a variable when instantiated. -->
-	<rule ref="WordPress.Objects.ObjectInstantiation"/>
-
 	<!-- Makes sure that any use of Double Quotes ("") are warranted. -->
 	<rule ref="WordPress.Strings.DoubleQuoteUsage"/>
 </ruleset>

@@ -52,7 +52,6 @@ class Gigaom_Sniffs_Commenting_ClosingDeclarationCommentSniff implements PHP_Cod
 			T_WHILE,
 			T_SWITCH,
 		);
-
 	}//end register
 
 	/**
@@ -68,124 +67,145 @@ class Gigaom_Sniffs_Commenting_ClosingDeclarationCommentSniff implements PHP_Cod
 	{
 		$tokens = $phpcsFile->getTokens();
 
-		if ($tokens[$stackPtr]['code'] === T_FUNCTION) {
-
-			$methodProps = $phpcsFile->getMethodProperties($stackPtr);
+		if ( T_FUNCTION === $tokens[ $stackPtr ]['code'] )
+		{
+			$methodProps = $phpcsFile->getMethodProperties( $stackPtr );
 
 			// Abstract methods do not require a closing comment.
-			if ($methodProps['is_abstract'] === true) {
+			if ( TRUE === $methodProps['is_abstract'] )
+			{
 				return;
 			}//end if
 
 			// Closures do not require a closing comment.
-			if ($methodProps['is_closure'] === true) {
+			if ( TRUE === $methodProps['is_closure'] )
+			{
 				return;
 			}//end if
 
 			// If this function is in an interface then we don't require
 			// a closing comment.
-			if ($phpcsFile->hasCondition($stackPtr, T_INTERFACE) === true) {
+			if ( TRUE === $phpcsFile->hasCondition( $stackPtr, T_INTERFACE ) )
+			{
 				return;
 			}//end if
 
-			if (isset($tokens[$stackPtr]['scope_closer']) === false) {
+			if ( FALSE === isset( $tokens[ $stackPtr ]['scope_closer'] ) )
+			{
 				$error = 'Possible parse error: non-abstract method defined as abstract';
-				$phpcsFile->addWarning($error, $stackPtr, 'Abstract');
+				$phpcsFile->addWarning( $error, $stackPtr, 'Abstract' );
 				return;
 			}//end if
 
-			$decName = $phpcsFile->getDeclarationName($stackPtr);
-			$comment = '//end '.$decName;
-			$comment_alt = '// end '.$decName;
+			$decName = $phpcsFile->getDeclarationName( $stackPtr );
+			$comment = '//end ' . $decName;
+			$comment_alt = '// end ' . $decName;
 		}//end if
-		elseif ($tokens[$stackPtr]['code'] === T_CLASS) {
-			$decName = $phpcsFile->getDeclarationName($stackPtr);
+		elseif ( T_CLASS === $tokens[ $stackPtr ]['code'] )
+		{
+			$decName = $phpcsFile->getDeclarationName( $stackPtr );
 			$comment = '//end class';
 			$comment_alt = '// end class';
 		}//end elseif
-		elseif ( $tokens[$stackPtr]['code'] === T_INTERFACE ) {
+		elseif ( T_INTERFACE === $tokens[ $stackPtr ]['code'] )
+		{
 			$comment = '//end interface';
 			$comment_alt = '// end interface';
 		}//end elseif
-		elseif ( $tokens[$stackPtr]['code'] === T_IF ) {
+		elseif ( T_IF === $tokens[ $stackPtr ]['code'] )
+		{
 			$comment = '//end if';
 			$comment_alt = '// end if';
 		}//end elseif
-		elseif ( $tokens[$stackPtr]['code'] === T_ELSE ) {
+		elseif ( T_ELSE === $tokens[ $stackPtr ]['code'] )
+		{
 			$comment = '//end else';
 			$comment_alt = '// end else';
 		}//end elseif
-		elseif ( $tokens[$stackPtr]['code'] === T_ELSEIF ) {
+		elseif ( T_ELSEIF === $tokens[ $stackPtr ]['code'] )
+		{
 			$comment = '//end elseif';
 			$comment_alt = '// end elseif';
 		}//end elseif
-		elseif ( $tokens[$stackPtr]['code'] === T_WHILE ) {
+		elseif ( T_WHILE === $tokens[ $stackPtr ]['code'] )
+		{
 			$comment = '//end while';
 			$comment_alt = '// end while';
 		}//end elseif
-		elseif ( $tokens[$stackPtr]['code'] === T_FOR ) {
+		elseif ( T_FOR === $tokens[ $stackPtr ]['code'] )
+		{
 			$comment = '//end for';
 			$comment_alt = '// end for';
 		}//end elseif
-		elseif ( $tokens[$stackPtr]['code'] === T_FOREACH ) {
+		elseif ( T_FOREACH === $tokens[ $stackPtr ]['code'] )
+		{
 			$comment = '//end foreach';
 			$comment_alt = '// end foreach';
 		}//end elseif
-		elseif ( $tokens[$stackPtr]['code'] === T_SWITCH ) {
+		elseif ( T_SWITCH === $tokens[ $stackPtr ]['code'] )
+		{
 			$comment = '//end switch';
 			$comment_alt = '// end switch';
 		}//end elseif
 
-		if (isset($tokens[$stackPtr]['scope_closer']) === false) {
+		if ( FALSE === isset( $tokens[ $stackPtr ]['scope_closer'] ) )
+		{
 			$closing_paren = isset( $tokens[ $stackPtr ]['parenthesis_closer'] ) ? $tokens[ $stackPtr ]['parenthesis_closer'] : null;
 
-			if ( ':' == $tokens[ $closing_paren + 1]['content'] || ':' == $tokens[ $closing_paren + 2]['content'] )
+			if ( ':' == $tokens[ $closing_paren + 1 ]['content'] || ':' == $tokens[ $closing_paren + 2 ]['content'] )
 			{
 				$error = 'Colon syntax control structures are not allowed';
-				$data  = array($tokens[$stackPtr]['content']);
-				$phpcsFile->addError($error, $stackPtr, 'ColonSyntax', $data);
+				$data  = array($tokens[ $stackPtr ]['content']);
+				$phpcsFile->addError( $error, $stackPtr, 'ColonSyntax', $data );
 				return;
 			}//end if
 
-			$error = 'Possible parse error: %s missing opening or closing brace';
-			$data  = array($tokens[$stackPtr]['content']);
-			$phpcsFile->addWarning($error, $stackPtr, 'MissingBrace', $data);
+			if ( 'while' == $tokens[ $stackPtr ]['content'] && ';' != $tokens[ $closing_paren + 1 ]['content'] )
+			{
+				$error = 'Possible parse error: %s missing opening or closing brace';
+				$data  = array($tokens[ $stackPtr ]['content']);
+				$phpcsFile->addWarning( $error, $stackPtr, 'MissingBrace', $data );
+			}//end if
 			return;
 		}//end if
 
-		$closingBracket = $tokens[$stackPtr]['scope_closer'];
+		$closingBracket = $tokens[ $stackPtr ]['scope_closer'];
 
-		if ($closingBracket === null) {
+		if ( $closingBracket === null )
+		{
 			// Possible inline structure. Other tests will handle it.
 			return;
 		}//end if
 
-		if ( $tokens[$closingBracket]['line'] - $tokens[$stackPtr]['line'] >= 10 ) {
+		if ( $tokens[ $closingBracket ]['line'] - $tokens[ $stackPtr ]['line'] >= 10 )
+		{
 			$error = 'Expected '.$comment;
 			if (
 				! isset( $tokens[ ( $closingBracket + 1 ) ] )
 				|| (
 					isset( $tokens[ ( $closingBracket + 2 ) ]['code'] )
-					&& $tokens[ ( $closingBracket + 1 ) ]['code'] !== T_COMMENT
-					&& $tokens[ ( $closingBracket + 2 ) ]['code'] !== T_COMMENT
+					&& T_COMMENT !== $tokens[ ( $closingBracket + 1 ) ]['code']
+					&& T_COMMENT !== $tokens[ ( $closingBracket + 2 ) ]['code']
 				)
-			) {
-					$phpcsFile->addWarning($error, $closingBracket, 'Missing');
+			)
+			{
+					$phpcsFile->addWarning( $error, $closingBracket, 'Missing' );
 					return;
 			}//end if
 
 			if (
-					 strtolower( rtrim($tokens[($closingBracket + 1)]['content']) ) !== $comment
-				&& strtolower( rtrim($tokens[($closingBracket + 1)]['content']) ) !== $comment_alt
-				&& isset($tokens[($closingBracket + 2)]['content']) 
-				&& strtolower( rtrim($tokens[($closingBracket + 2)]['content']) ) !== $comment
-				&& strtolower( rtrim($tokens[($closingBracket + 2)]['content']) ) !== $comment_alt
-				&& ( T_CLASS && rtrim($tokens[($closingBracket + 2)]['content']) !== '//end ' . $decName )
-				&& ( T_CLASS && rtrim($tokens[($closingBracket + 2)]['content']) !== '// end ' . $decName )
-				&& ( T_CLASS && rtrim($tokens[($closingBracket + 2)]['content']) !== '//END ' . $decName )
-				&& ( T_CLASS && rtrim($tokens[($closingBracket + 2)]['content']) !== '// END ' . $decName )
-			) {
-				$phpcsFile->addError($error, $closingBracket, 'Incorrect');
+					 strtolower( rtrim( $tokens[ ( $closingBracket + 1 ) ]['content']) ) !== $comment
+				&& strtolower( rtrim( $tokens[ ( $closingBracket + 1 ) ]['content']) ) !== $comment_alt
+				&& isset( $tokens[ ( $closingBracket + 2 ) ]['content'] )
+				&& strtolower( rtrim( $tokens[ ( $closingBracket + 2 ) ]['content']) ) !== $comment
+				&& strtolower( rtrim( $tokens[ ( $closingBracket + 2 ) ]['content']) ) !== $comment_alt
+				&& ( T_CLASS && rtrim( $tokens[ ( $closingBracket + 2 ) ]['content']) !== '//end ' . $decName )
+				&& ( T_CLASS && rtrim( $tokens[ ( $closingBracket + 2 ) ]['content']) !== '// end ' . $decName )
+				&& ( T_CLASS && rtrim( $tokens[ ( $closingBracket + 2 ) ]['content']) !== '//END ' . $decName )
+				&& ( T_CLASS && rtrim( $tokens[ ( $closingBracket + 2 ) ]['content']) !== '// END ' . $decName )
+			)
+			{
+				$phpcsFile->addError( $error, $closingBracket, 'Incorrect' );
 				return;
 			}//end if
 		}//end if

@@ -72,7 +72,6 @@
 	<rule ref="Generic.PHP.DisallowShortOpenTag"/>
 
 	<!-- Discourages the use of alias functions that are kept in PHP for compatibility with older versions. Can be used to forbid the use of any function. -->
-	<!-- @TODO: this would be sweet to extend with other discouraged Gigaom functions (perhaps even WP ones -->
 	<rule ref="Generic.PHP.ForbiddenFunctions"/>
 
 	<!-- Checks that two strings are not concatenated together; suggests using one string instead. -->

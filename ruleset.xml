@@ -92,9 +92,6 @@
 	<!-- A Sniff to ensure that parameters defined for a function that have a default value come at the end of the function signature. -->
 	<rule ref="PEAR.Functions.ValidDefaultValue"/>
 
-	<!-- Ensures class and interface names start with a capital letter and use _ separators. -->
-	<rule ref="PEAR.NamingConventions.ValidClassName"/>
-
 	<!-- Ensures all class keywords are lowercase. -->
 	<rule ref="Squiz.Classes.LowercaseClassKeywords"/>
 
@@ -140,9 +137,6 @@
 
 	<!-- The closing ?> tag MUST be omitted from files containing only PHP. -->
 	<rule ref="Zend.Files.ClosingTag"/>
-
-	<!-- Ensures classes are in camel caps, and the first letter is capitalised -->
-	<rule ref="WordPress.Classes.ValidClassName"/>
 
 	<!-- Ensures filenames do not contain underscores -->
 	<rule ref="WordPress.Files.FileName"/>

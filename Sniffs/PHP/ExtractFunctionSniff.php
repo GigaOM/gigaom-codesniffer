@@ -15,7 +15,6 @@
  */
 class Gigaom_Sniffs_PHP_ExtractFunctionSniff extends Generic_Sniffs_PHP_ForbiddenFunctionsSniff
 {
-
 	/**
 	 * A list of forbidden functions with their alternatives.
 	 *
@@ -41,7 +40,7 @@ class Gigaom_Sniffs_PHP_ExtractFunctionSniff extends Generic_Sniffs_PHP_Forbidde
 	 */
 	protected function addError( $phpcsFile, $stackPtr, $function, $unused_pattern = NULL )
 	{
-		$data  = array($function);
+		$data  = array( $function );
 		$error = 'Extract is the devil.';
 
 		if ( $this->forbiddenFunctions[ $function ] )
@@ -51,13 +50,13 @@ class Gigaom_Sniffs_PHP_ExtractFunctionSniff extends Generic_Sniffs_PHP_Forbidde
 
 		$type  = 'Found';
 
-		if ($this->error === true)
+		if ( TRUE === $this->error )
 		{
-			$phpcsFile->addError($error, $stackPtr, $type, $data);
+			$phpcsFile->addError( $error, $stackPtr, $type, $data );
 		}//end if
 		else
 		{
-			$phpcsFile->addWarning($error, $stackPtr, $type, $data);
+			$phpcsFile->addWarning( $error, $stackPtr, $type, $data );
 		}//end else
 	}//end addError
 }//end class

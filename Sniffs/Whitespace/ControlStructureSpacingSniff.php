@@ -63,12 +63,6 @@ class GigaOM_Sniffs_Whitespace_ControlStructureSpacingSniff implements PHP_CodeS
 	{
 		$tokens = $phpcsFile->getTokens();
 
-		if ( $tokens[ ( $stackPtr + 1 ) ]['code'] !== T_WHITESPACE )
-		{
-			$error = 'Space after opening control structure is required';
-			$phpcsFile->addError( $error, $stackPtr );
-		}
-
 		if ( isset( $tokens[ $stackPtr ]['scope_closer'] ) === false )
 		{
 			return;
@@ -78,13 +72,6 @@ class GigaOM_Sniffs_Whitespace_ControlStructureSpacingSniff implements PHP_CodeS
 		$scopeOpener = $tokens[ $stackPtr ]['scope_opener'];
 
 		$openBracket = $phpcsFile->findNext( PHP_CodeSniffer_Tokens::$emptyTokens, ( $stackPtr + 1 ), null, true );
-
-		if ( ( $stackPtr + 1 ) === $openBracket )
-		{
-			// Checking this: $value = my_function[*](...).
-			$error = 'No space before opening parenthesis is prohibited';
-			$phpcsFile->addError( $error, $stackPtr );
-		}
 
 		if ( $tokens[ ( $openBracket + 1 ) ]['code'] !== T_WHITESPACE && $tokens[ ( $openBracket + 1 ) ]['code'] !== T_CLOSE_PARENTHESIS )
 		{

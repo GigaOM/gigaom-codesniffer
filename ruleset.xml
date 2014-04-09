@@ -151,8 +151,8 @@
 	<rule ref="WordPress.Strings.DoubleQuoteUsage"/>
 
 	<!-- Makes sure control structures have appropriate spacing -->
-	<rule ref="WordPress.Whitespace.ControlStructureSpacing"/>
+	<rule ref="WordPress.WhiteSpace.ControlStructureSpacing"/>
 
 	<!-- Makes sure operators structures have appropriate spacing -->
-	<rule ref="WordPress.Whitespace.OperatorSpacing"/>
+	<rule ref="WordPress.WhiteSpace.OperatorSpacing"/>
 </ruleset>

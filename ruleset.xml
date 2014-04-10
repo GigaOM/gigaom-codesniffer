@@ -149,7 +149,4 @@
 
 	<!-- Makes sure that any use of Double Quotes ("") are warranted. -->
 	<rule ref="WordPress.Strings.DoubleQuoteUsage"/>
-
-	<!-- Makes sure operators structures have appropriate spacing -->
-	<rule ref="WordPress.WhiteSpace.OperatorSpacing"/>
 </ruleset>

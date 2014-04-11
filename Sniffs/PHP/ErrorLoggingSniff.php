@@ -26,7 +26,7 @@ class Gigaom_Sniffs_PHP_ErrorLoggingSniff implements PHP_CodeSniffer_Sniff
 	/**
 	 * A list of forbidden functions with their alternatives.
 	 *
-	 * The value is NULL if no alternative exists. IE, the
+	 * The value is NULL if no alternative exists. i.e. the
 	 * function should just not be used.
 	 *
 	 * @var array(string => string|null)
@@ -34,6 +34,7 @@ class Gigaom_Sniffs_PHP_ErrorLoggingSniff implements PHP_CodeSniffer_Sniff
 	protected $forbidden = array(
 		'error_log',
 		'wlog',
+		'golog',
 	);
 
 	/**

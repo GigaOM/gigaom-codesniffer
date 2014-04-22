@@ -50,6 +50,7 @@ class Gigaom_Sniffs_Commenting_ClosingDeclarationCommentSniff implements PHP_Cod
 			T_FOREACH,
 			T_FOR,
 			T_WHILE,
+			T_DO,
 			T_SWITCH,
 		);
 	}//end register
@@ -69,111 +70,119 @@ class Gigaom_Sniffs_Commenting_ClosingDeclarationCommentSniff implements PHP_Cod
 
 		$acceptable_comments = array();
 
-		if ( T_FUNCTION === $tokens[ $stackPtr ]['code'] )
+		switch ( $tokens[ $stackPtr ]['code'] )
 		{
-			$methodProps = $phpcsFile->getMethodProperties( $stackPtr );
+			case T_FUNCTION:
+				$methodProps = $phpcsFile->getMethodProperties( $stackPtr );
 
-			// Abstract methods do not require a closing comment.
-			if ( TRUE === $methodProps['is_abstract'] )
-			{
+				// Abstract methods do not require a closing comment.
+				if ( TRUE === $methodProps['is_abstract'] )
+				{
+					return;
+				}//end if
+
+				// Closures do not require a closing comment.
+				if ( TRUE === $methodProps['is_closure'] )
+				{
+					return;
+				}//end if
+
+				// If this function is in an interface then we don't require
+				// a closing comment.
+				if ( TRUE === $phpcsFile->hasCondition( $stackPtr, T_INTERFACE ) )
+				{
+					return;
+				}//end if
+
+				if ( FALSE === isset( $tokens[ $stackPtr ]['scope_closer'] ) )
+				{
+					$error = 'Possible parse error: non-abstract method defined as abstract';
+					$phpcsFile->addWarning( $error, $stackPtr, 'Abstract' );
+					return;
+				}//end if
+
+				$decName = $phpcsFile->getDeclarationName( $stackPtr );
+				$acceptable_comments[] = '//end ' . $decName;
+				$acceptable_comments[] = '// end ' . $decName;
+				$acceptable_comments[] = '//END ' . $decName;
+				$acceptable_comments[] = '// END ' . $decName;
+
+				break;
+			case T_CLASS:
+				$acceptable_comments[] = '//end class';
+				$acceptable_comments[] = '// end class';
+				$acceptable_comments[] = '//END class';
+				$acceptable_comments[] = '// END class';
+
+				$decName = $phpcsFile->getDeclarationName( $stackPtr );
+				$acceptable_comments[] = '//end ' . $decName;
+				$acceptable_comments[] = '// end ' . $decName;
+				$acceptable_comments[] = '//END ' . $decName;
+				$acceptable_comments[] = '// END ' . $decName;
+				break;
+			case T_INTERFACE:
+				$acceptable_comments[] = '//end interface';
+				$acceptable_comments[] = '// end interface';
+				$acceptable_comments[] = '//END interface';
+				$acceptable_comments[] = '// END interface';
+
+				$decName = $phpcsFile->getDeclarationName( $stackPtr );
+				$acceptable_comments[] = '//end ' . $decName;
+				$acceptable_comments[] = '// end ' . $decName;
+				$acceptable_comments[] = '//END ' . $decName;
+				$acceptable_comments[] = '// END ' . $decName;
+				break;
+			case T_IF:
+				$acceptable_comments[] = '//end if';
+				$acceptable_comments[] = '// end if';
+				$acceptable_comments[] = '//END if';
+				$acceptable_comments[] = '// END if';
+				break;
+			case T_ELSE:
+				$acceptable_comments[] = '//end else';
+				$acceptable_comments[] = '// end else';
+				$acceptable_comments[] = '//END else';
+				$acceptable_comments[] = '// END else';
+				break;
+			case T_ELSEIF:
+				$acceptable_comments[] = '//end elseif';
+				$acceptable_comments[] = '// end elseif';
+				$acceptable_comments[] = '//END elseif';
+				$acceptable_comments[] = '// END elseif';
+				break;
+			case T_WHILE:
+				$acceptable_comments[] = '//end while';
+				$acceptable_comments[] = '// end while';
+				$acceptable_comments[] = '//END while';
+				$acceptable_comments[] = '// END while';
+				break;
+			case T_DO:
+				$acceptable_comments[] = '//end do';
+				$acceptable_comments[] = '// end do';
+				$acceptable_comments[] = '//END do';
+				$acceptable_comments[] = '// END do';
+				break;
+			case T_FOR:
+				$acceptable_comments[] = '//end for';
+				$acceptable_comments[] = '// end for';
+				$acceptable_comments[] = '//END for';
+				$acceptable_comments[] = '// END for';
+				break;
+			case T_FOREACH:
+				$acceptable_comments[] = '//end foreach';
+				$acceptable_comments[] = '// end foreach';
+				$acceptable_comments[] = '//END foreach';
+				$acceptable_comments[] = '// END foreach';
+				break;
+			case T_SWITCH:
+				$acceptable_comments[] = '//end switch';
+				$acceptable_comments[] = '// end switch';
+				$acceptable_comments[] = '//END switch';
+				$acceptable_comments[] = '// END switch';
+				break;
+			default:
 				return;
-			}//end if
-
-			// Closures do not require a closing comment.
-			if ( TRUE === $methodProps['is_closure'] )
-			{
-				return;
-			}//end if
-
-			// If this function is in an interface then we don't require
-			// a closing comment.
-			if ( TRUE === $phpcsFile->hasCondition( $stackPtr, T_INTERFACE ) )
-			{
-				return;
-			}//end if
-
-			if ( FALSE === isset( $tokens[ $stackPtr ]['scope_closer'] ) )
-			{
-				$error = 'Possible parse error: non-abstract method defined as abstract';
-				$phpcsFile->addWarning( $error, $stackPtr, 'Abstract' );
-				return;
-			}//end if
-
-			$decName = $phpcsFile->getDeclarationName( $stackPtr );
-			$acceptable_comments[] = '//end ' . $decName;
-			$acceptable_comments[] = '// end ' . $decName;
-			$acceptable_comments[] = '//END ' . $decName;
-			$acceptable_comments[] = '// END ' . $decName;
-		}//end if
-		elseif ( T_CLASS === $tokens[ $stackPtr ]['code'] )
-		{
-			$acceptable_comments[] = '//end class';
-			$acceptable_comments[] = '// end class';
-			$acceptable_comments[] = '//END class';
-			$acceptable_comments[] = '// END class';
-
-			$decName = $phpcsFile->getDeclarationName( $stackPtr );
-			$acceptable_comments[] = '//end ' . $decName;
-			$acceptable_comments[] = '// end ' . $decName;
-			$acceptable_comments[] = '//END ' . $decName;
-			$acceptable_comments[] = '// END ' . $decName;
-		}//end elseif
-		elseif ( T_INTERFACE === $tokens[ $stackPtr ]['code'] )
-		{
-			$acceptable_comments[] = '//end interface';
-			$acceptable_comments[] = '// end interface';
-			$acceptable_comments[] = '//END interface';
-			$acceptable_comments[] = '// END interface';
-		}//end elseif
-		elseif ( T_IF === $tokens[ $stackPtr ]['code'] )
-		{
-			$acceptable_comments[] = '//end if';
-			$acceptable_comments[] = '// end if';
-			$acceptable_comments[] = '//END if';
-			$acceptable_comments[] = '// END if';
-		}//end elseif
-		elseif ( T_ELSE === $tokens[ $stackPtr ]['code'] )
-		{
-			$acceptable_comments[] = '//end else';
-			$acceptable_comments[] = '// end else';
-			$acceptable_comments[] = '//END else';
-			$acceptable_comments[] = '// END else';
-		}//end elseif
-		elseif ( T_ELSEIF === $tokens[ $stackPtr ]['code'] )
-		{
-			$acceptable_comments[] = '//end elseif';
-			$acceptable_comments[] = '// end elseif';
-			$acceptable_comments[] = '//END elseif';
-			$acceptable_comments[] = '// END elseif';
-		}//end elseif
-		elseif ( T_WHILE === $tokens[ $stackPtr ]['code'] )
-		{
-			$acceptable_comments[] = '//end while';
-			$acceptable_comments[] = '// end while';
-			$acceptable_comments[] = '//END while';
-			$acceptable_comments[] = '// END while';
-		}//end elseif
-		elseif ( T_FOR === $tokens[ $stackPtr ]['code'] )
-		{
-			$acceptable_comments[] = '//end for';
-			$acceptable_comments[] = '// end for';
-			$acceptable_comments[] = '//END for';
-			$acceptable_comments[] = '// END for';
-		}//end elseif
-		elseif ( T_FOREACH === $tokens[ $stackPtr ]['code'] )
-		{
-			$acceptable_comments[] = '//end foreach';
-			$acceptable_comments[] = '// end foreach';
-			$acceptable_comments[] = '//END foreach';
-			$acceptable_comments[] = '// END foreach';
-		}//end elseif
-		elseif ( T_SWITCH === $tokens[ $stackPtr ]['code'] )
-		{
-			$acceptable_comments[] = '//end switch';
-			$acceptable_comments[] = '// end switch';
-			$acceptable_comments[] = '//END switch';
-			$acceptable_comments[] = '// END switch';
-		}//end elseif
+		}// end switch
 
 		if ( FALSE === isset( $tokens[ $stackPtr ]['scope_closer'] ) )
 		{
@@ -225,9 +234,12 @@ class Gigaom_Sniffs_Commenting_ClosingDeclarationCommentSniff implements PHP_Cod
 			}// end elseif
 		}// end if
 
-		if ( ! $comment_token && $tokens[ $closingBracket ]['line'] - $tokens[ $stackPtr ]['line'] >= 10 )
+		if ( ! $comment_token )
 		{
-			$phpcsFile->addWarning( $error, $closingBracket, 'Missing' );
+			if ( ( $tokens[ $closingBracket ]['line'] - $tokens[ $stackPtr ]['line'] ) >= 10 )
+			{
+				$phpcsFile->addWarning( $error, $closingBracket, 'Missing' );
+			}//end if
 			return;
 		}//end if
 

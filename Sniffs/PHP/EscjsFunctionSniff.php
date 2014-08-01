@@ -42,7 +42,7 @@ class Gigaom_Sniffs_PHP_EscjsFunctionSniff extends Generic_Sniffs_PHP_ForbiddenF
 	protected function addError( $phpcsFile, $stackPtr, $function, $unused_pattern = NULL )
 	{
 		$data  = array( $function );
-		$error = "BARF ME OUT! esc_js()!";
+		$error = 'Barf out, gag me with a spoon! esc_js()!';
 
 		if ( $this->forbiddenFunctions[ $function ] )
 		{

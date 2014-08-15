@@ -149,4 +149,7 @@
 
 	<!-- Makes sure that any use of Double Quotes ("") are warranted. -->
 	<rule ref="WordPress.Strings.DoubleQuoteUsage"/>
+
+	<!-- Test for escaping the way VIP does. -->
+	<rule ref="WordPress.XSS.EscapeOutput"/>
 </ruleset>

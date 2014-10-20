@@ -148,7 +148,10 @@
 	<rule ref="WordPress.NamingConventions.ValidFunctionName"/>
 
 	<!-- Makes sure that any use of Double Quotes ("") are warranted. -->
-	<rule ref="WordPress.Strings.DoubleQuoteUsage"/>
+	<rule ref="Squiz.Strings.DoubleQuoteUsage"/>
+	<rule ref="Squiz.Strings.DoubleQuoteUsage.ContainsVar">
+		<severity>0</severity>
+	</rule>
 
 	<!-- Test for escaping the way VIP does. -->
 	<rule ref="WordPress.XSS.EscapeOutput"/>

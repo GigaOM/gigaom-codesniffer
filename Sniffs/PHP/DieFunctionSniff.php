@@ -24,7 +24,7 @@ class Gigaom_Sniffs_PHP_DieFunctionSniff implements PHP_CodeSniffer_Sniff
 		return array(
 			T_STRING,
 		);
-	}//end register()
+	}//end register
 
 	/**
 	 * Processes the tokens that this sniff is interested in.
@@ -45,5 +45,5 @@ class Gigaom_Sniffs_PHP_DieFunctionSniff implements PHP_CodeSniffer_Sniff
 			$data  = array( trim( $tokens[ $stackPtr ][ 'content' ] ) );
 			$phpcsFile->addWarning( $error, $stackPtr, 'Found', $data );
 		}
-	}//end process()
+	}//end process
 }//end class

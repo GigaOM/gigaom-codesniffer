@@ -2,7 +2,7 @@
 /**
  * Gigaom_Sniffs_PHP_DieFunctionSniff
  *
- * Throw an error if die is used; suggest alternatives.
+ * Throw a warning if die is used
  *
  * @category  PHP
  * @package   PHP_CodeSniffer
@@ -12,38 +12,47 @@
  * @version   Release: 1.4.0
  * @link      http://pear.php.net/package/PHP_CodeSniffer
  */
-class Gigaom_Sniffs_PHP_DieFunctionSniff implements PHP_CodeSniffer_Sniff
+class Gigaom_Sniffs_PHP_DieFunctionSniff extends Generic_Sniffs_PHP_ForbiddenFunctionsSniff
 {
 	/**
-	 * Returns the token types that this sniff is interested in.
+	 * A list of forbidden functions with their alternatives.
 	 *
-	 * @return array(int)
+	 * The value is NULL if no alternative exists. IE, the
+	 * function should just not be used.
+	 *
+	 * @var array(string => string|null)
 	 */
-	public function register()
-	{
-		return array(
-			T_STRING,
-		);
-	}//end register
+	protected $forbiddenFunctions = array(
+		'die' => 'wp_die(), wp_send_json_error(), or wp_send_json_success()',
+	);
 
 	/**
-	 * Processes the tokens that this sniff is interested in.
+	 * Generates the error or wanrning for this sniff.
 	 *
-	 * @param PHP_CodeSniffer_File $phpcsFile The file where the token was found.
-	 * @param int                  $stackPtr  The position in the stack where
-	 *                                        the token was found.
+	 * @param PHP_CodeSniffer_File $phpcsFile The file being scanned.
+	 * @param int                  $stackPtr  The position of the forbidden function
+	 *                                        in the token array.
+	 * @param string               $function  The name of the forbidden function.
+	 * @param string               $unused_pattern   The pattern used for the match.
 	 *
 	 * @return void
 	 */
-	public function process( PHP_CodeSniffer_File $phpcsFile, $stackPtr )
+	protected function addError( $phpcsFile, $stackPtr, $function, $unused_pattern = NULL )
 	{
-		$tokens = $phpcsFile->getTokens();
-		if ( $tokens[ $stackPtr ][ 'content' ]{0} === 'die' )
+		$data = array( $function );
+		$error = 'Die returns an ugly error page.';
+		if ( $this->forbiddenFunctions[ $function ] )
 		{
-			$error = 'It is poor design to rely on die() for error handling in a web site. Use wp_die() with a useful error message. ';
-			$error .= 'Note: if this is the result of an ajax call, use wp_send_json_error for the failure case and wp_send_json_success for the success case.';
-			$data  = array( trim( $tokens[ $stackPtr ][ 'content' ] ) );
-			$phpcsFile->addWarning( $error, $stackPtr, 'Found', $data );
-		}
-	}//end process
+			$error .= ' Use ' . $this->forbiddenFunctions[ $function ] . ' instead.';
+		}//end if
+		$type = 'Found';
+		if ( TRUE === $this->error )
+		{
+			$phpcsFile->addError( $error, $stackPtr, $type, $data );
+		}//end if
+		else
+		{
+			$phpcsFile->addWarning( $error, $stackPtr, $type, $data );
+		}//end else
+	}//end addError
 }//end class

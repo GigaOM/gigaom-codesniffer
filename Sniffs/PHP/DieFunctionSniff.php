@@ -27,7 +27,7 @@ class Gigaom_Sniffs_PHP_DieFunctionSniff extends Generic_Sniffs_PHP_ForbiddenFun
 	);
 
 	/**
-	 * Generates the error or wanrning for this sniff.
+	 * Generates the error or warning for this sniff.
 	 *
 	 * @param PHP_CodeSniffer_File $phpcsFile The file being scanned.
 	 * @param int                  $stackPtr  The position of the forbidden function
@@ -40,12 +40,15 @@ class Gigaom_Sniffs_PHP_DieFunctionSniff extends Generic_Sniffs_PHP_ForbiddenFun
 	protected function addError( $phpcsFile, $stackPtr, $function, $unused_pattern = NULL )
 	{
 		$data = array( $function );
-		$error = 'Die returns an ugly error page.';
+		$error = 'Die the Wordpress way is not.';
+
 		if ( $this->forbiddenFunctions[ $function ] )
 		{
 			$error .= ' Use ' . $this->forbiddenFunctions[ $function ] . ' instead.';
 		}//end if
+
 		$type = 'Found';
+
 		if ( TRUE === $this->error )
 		{
 			$phpcsFile->addError( $error, $stackPtr, $type, $data );

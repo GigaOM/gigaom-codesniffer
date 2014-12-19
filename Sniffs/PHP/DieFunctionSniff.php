@@ -36,7 +36,7 @@ class Gigaom_Sniffs_PHP_DieFunctionSniff extends Generic_Sniffs_PHP_ForbiddenFun
 	{
 		// Everyone has had a chance to figure out what forbidden functions
 		// they want to check for, so now we can cache out the list.
-		$this->forbiddenFunctionNames = array_keys($this->forbiddenFunctions);
+		$this->forbiddenFunctionNames = array_keys( $this->forbiddenFunctions );
 
 		if ( $this->patternMatch === true )
 		{
@@ -47,7 +47,7 @@ class Gigaom_Sniffs_PHP_DieFunctionSniff extends Generic_Sniffs_PHP_ForbiddenFun
 		}
 
 		return array( T_EXIT );
-	}//end register()
+	}//end register
 
 /**
 	 * Generates the error or warning for this sniff.
@@ -63,7 +63,7 @@ class Gigaom_Sniffs_PHP_DieFunctionSniff extends Generic_Sniffs_PHP_ForbiddenFun
 	protected function addError( $phpcsFile, $stackPtr, $function, $unused_pattern = NULL )
 	{
 		$data = array( $function );
-		$error = 'Die, the Wordpress way is not.';
+		$error = 'Wordpress best practice is to avoid die.';
 
 		if ( $this->forbiddenFunctions[ $function ] )
 		{
